@@ -1,5 +1,7 @@
 package game;
 
+import javax.swing.SwingUtilities;
+
 /**
  * 
  * @author Mitchell Ford
@@ -7,11 +9,9 @@ package game;
  */
 public class Main
 {
-
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
-
+		Game game = new Game();
+		game.start();
 	}
-
 }
