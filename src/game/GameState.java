@@ -22,7 +22,7 @@ public class GameState extends State
 	/** The upward acceleration the player character experiences when flapping */
 	private static final double FLAP_FORCE = 6;
 	
-	private static final double FLAP_COOLDOWN = .5;
+	private static final double FLAP_COOLDOWN = .25;
 	
 	private static final double OBSTACLE_COOLDOWN = 3;
 	
@@ -31,8 +31,10 @@ public class GameState extends State
 	private static final int MAX_OBSTACLES = 5;
 	
 	/** The rate at which the camera viewport should move to the right */
-	public static int CAMERA_SPEED = 2;
-
+	public static final int CAMERA_SPEED = 2;
+	
+	private boolean paused = true;
+	
 	private Player player;
 
 	private ArrayList<Obstacle> obstacles;
@@ -84,6 +86,11 @@ public class GameState extends State
 	@Override
 	public void update()
 	{
+		if(paused)
+		{
+			return;
+		}
+		
 		player.update();
 
 		// Apply gravity
@@ -148,6 +155,12 @@ public class GameState extends State
 	 */
 	private void flap()
 	{
+		if(paused)
+		{
+			paused = false;
+			return;
+		}
+		
 		if(ticksSinceLastFlap >= FLAP_COOLDOWN * game.fps)
 		{
 			//System.out.println("flap");
@@ -213,6 +226,18 @@ public class GameState extends State
 		@Override
 		public void paintComponent(Graphics g)
 		{
+			if(paused)
+			{
+				// Draw background
+				g.setColor(Color.white);
+				g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+				
+				g.setColor(Color.black);
+				g.drawString("press space to start", 220, 200);
+				
+				return;
+			}
+			
 			//System.out.println("render");
 
 			// Draw background

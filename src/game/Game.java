@@ -31,8 +31,8 @@ public class Game implements Runnable
 	{
 		menuState = new MenuState(this);
 		gameState = new GameState(this);
-		currentState = menuState;
-		display = new Display(menuState);
+		currentState = gameState;
+		display = new Display(currentState);
 	}
 	
 	@Override
@@ -134,7 +134,7 @@ public class Game implements Runnable
 		}
 	}
 	
-	public synchronized void switchToGameState()
+	public void switchToGameState()
 	{
 		System.out.println("switching to game state");
 		

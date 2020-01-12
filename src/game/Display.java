@@ -15,8 +15,6 @@ public class Display extends JFrame
 		setLocationRelativeTo(null); // Centered on screen
 
 		changeState(state);
-
-		setVisible(true);
 	}
 
 	public synchronized void changeState(State state)
@@ -27,8 +25,6 @@ public class Display extends JFrame
 		
 		setContentPane(state.getContentPane());
 
-		pack();
-
 		// Remove all current KeyListeners
 		for(KeyListener el : getKeyListeners())
 		{
@@ -37,6 +33,11 @@ public class Display extends JFrame
 		
 		// Add the new State as the only KeyListener
 		addKeyListener(state);
+		
+		pack();
+
+		state.contentPane.revalidate();
+		revalidate();
 		
 		setVisible(true);
 	}
